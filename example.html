@@ -15,7 +15,11 @@
     <p>The default time is today</p>
     <p>
         <input type="button" value="How many weeks does this week belong to this year?" onclick="getWeekIndexInYear();">
-        <span id="indexInYear"></span>
+        <span id="weekIndexInYear"></span>
+    </p>
+    <p>
+        <input type="button" value="How many weeks does this week belong to this year?" onclick="getDatIndexInYear();">
+        <span id="dateIndexInYear"></span>
     </p>
     <p>
         <input type="button" value="How many weeks are there in this month ？" onclick="getWeekInMonthCount();">
@@ -26,8 +30,11 @@
         <span id="indexInMonth"></span>
     </p>
     <script>
+        function getDatIndexInYear () {
+            document.getElementById('dateIndexInYear').innerText = (document.getElementById('date').value + '').weekIndexInYear();
+        }
         function getWeekIndexInYear () {
-            document.getElementById('indexInYear').innerText = (document.getElementById('date').value + '').weekIndexInYear();
+            document.getElementById('weekIndexInYear').innerText = (document.getElementById('date').value + '').dateIndexInYear();
         }
         function getWeekInMonthCount () {
             document.getElementById('count').innerText = (document.getElementById('date').value + '').weekInMonthCount();
