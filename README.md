@@ -40,7 +40,7 @@ The calculation of the week
 获取这一周属于本月第多少周
 
 ``` bash
-如果输入上个月返回 -1
+如果属于上个月，返回 -1
 默认时间是今天，调用方法示例：
 '2018-10-01'.weekIndexInMonth() 
 返回： 1
