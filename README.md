@@ -45,3 +45,13 @@ The calculation of the week
 '2018-10-01'.weekIndexInMonth() 
 返回： 1
 ```
+## String.prototype.getWeekRange
+
+获取这一周的区间范围，返回的是数组
+默认时间是今天，调用方法示例：
+
+``` bash
+'2019-06-05'.getWeekRange() 
+返回：  ["2019/06/03", "2019/06/09"]
+```
+
