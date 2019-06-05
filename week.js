@@ -87,3 +87,63 @@ String.prototype.weekIndexInMonth = function () {
     }
     return weekIndex;
 };
+// 获取周的区间
+String.prototype.getWeekRange = function () {
+    var nowDate = new Date(this.trim() != '' ? this : new Date()),
+        week = nowDate.getDay(),
+        weekStart,
+        weekEnd,
+        minDiff,
+        maxDiff;
+    if (week !== 0) {
+        minDiff = 1 - week;
+    } else {
+        minDiff = -6;
+    }
+    if (minDiff >= 0) {
+        weekStart = new Date(nowDate.setDate(nowDate.getDate() + minDiff));
+    } else {
+        weekStart = new Date(nowDate.setDate(nowDate.getDate() + minDiff));
+    }
+    nowDate = new Date(this.trim() != '' ? this : new Date()); // 重新赋值，为了取区间结束
+    if (week !== 0) {
+        maxDiff = 7 - week;
+    } else {
+        maxDiff = 0;
+    }
+    weekEnd = new Date(nowDate.setDate(nowDate.getDate() + maxDiff));
+    return [dateFormat(weekStart, 'yyyy/MM/dd'), dateFormat(weekEnd, 'yyyy/MM/dd')];
+}
+// 时间格式化
+function dateFormat (date, format) {
+    if ((date+'').match('-')) {
+        date=date.replace(new RegExp(/-/gm) ,"/");
+    }
+    date = new Date(date);
+    var map = {
+        "M": date.getMonth() + 1, //月份
+        "d": date.getDate(), //日
+        "h": date.getHours(), //小时
+        "m": date.getMinutes(), //分
+        "s": date.getSeconds(), //秒
+        "q": Math.floor((date.getMonth() + 3) / 3), //季度
+        "S": date.getMilliseconds() //毫秒
+    };
+
+
+    format = format.replace(/([yMdhmsqS])+/g, function(all, t){
+        var v = map[t];
+        if(v !== undefined){
+            if(all.length > 1){
+                v = '0' + v;
+                v = v.substr(v.length-2);
+            }
+            return v;
+        }
+        else if(t === 'y'){
+            return (date.getFullYear() + '').substr(4 - all.length);
+        }
+        return all;
+    });
+    return format;
+}
