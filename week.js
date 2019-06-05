@@ -22,10 +22,25 @@ String.prototype.weekIndexInYear = function () {
     var initTime = new Date(this != '' ? this : new Date());
     initTime.setMonth(0); // 本年初始月份
     initTime.setDate(1); // 本年初始时间
+    initTime.setHours(0);
+    initTime.setMinutes(0);
+    initTime.setSeconds(0);
+
+    nowDate.setHours(23);
+    nowDate.setMinutes(59);
+    nowDate.setSeconds(59);
     var differenceVal = nowDate - initTime ; // 今天的时间减去本年开始时间，获得相差的时间
     var todayYear = Math.ceil(differenceVal/(24*60*60*1000)); // 获取今天是今年第几天
-    var index = Math.ceil(todayYear/7); // 获取今天是今年第几周
-    return index;
+    var firstDay = initTime.getDay(); // 获取这年的第一天是周几，因为首周可能是上一年的最后一周内
+    var startDiff;
+    if (firstDay != 0) {
+        startDiff = firstDay - 7;
+    } else if (firstDay == 1) {
+        startDiff = 0;
+    } else {
+        startDiff = -1;
+    }
+    return Math.ceil((todayYear + startDiff)/7); // 返回今天是今年第几周
 };
 // 获取今天是今年的第几天
 String.prototype.dateIndexInYear = function () {
