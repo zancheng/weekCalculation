@@ -33,14 +33,14 @@ String.prototype.weekIndexInYear = function () {
     var todayYear = Math.ceil(differenceVal/(24*60*60*1000)); // 获取今天是今年第几天
     var firstDay = initTime.getDay(); // 获取这年的第一天是周几，因为首周可能是上一年的最后一周内
     var startDiff;
-    if (firstDay == 1) {
+    if (firstDay === 0) {
+        startDiff = 1;
+    } else if (firstDay === 1) { // 第一天是周一
         startDiff = 0;
-    } else if (firstDay > 1) {
-        startDiff = firstDay - 7;
     } else {
-        startDiff = -1;
+        startDiff = 7 - firstDay + 1;
     }
-    return Math.ceil((todayYear + startDiff)/7); // 返回今天是今年第几周
+    return Math.ceil((todayYear - startDiff)/7); // 返回今天是今年第几周
 };
 // 获取今天是今年的第几天
 String.prototype.dateIndexInYear = function () {
